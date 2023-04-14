@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Http\Requests\TicketRequest;
 use App\Models\Ticket;
 use App\Services\CommentService;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class TicketRepository
         return Ticket::query()->with(['project', 'type', 'status', 'priority', 'assignee', 'reporter'])->search(request(['search', 'assignee']))->paginate(10);
     }
 
-    public function create(Request $request)
+    public function create(TicketRequest $request)
     {
         $ticket = new Ticket;
         $ticket->title = $request->title;
@@ -37,7 +38,7 @@ class TicketRepository
         return redirect(route('tickets.index'))->with(['success' => 'Ticket created successfully!']);
     }
 
-    public function update(Request $request, Ticket $ticket)
+    public function update(TicketRequest $request, Ticket $ticket)
     {
         $ticket->title = $request->title;
         $ticket->project_id = $request->project_id;

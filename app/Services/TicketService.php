@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Http\Requests\TicketRequest;
 use App\Models\Ticket;
 use App\Repositories\TicketRepository;
 use Illuminate\Http\Request;
@@ -20,12 +21,12 @@ class TicketService
         return $this->ticketRepository->getList();
     }
 
-    public function create(Request $request)
+    public function create(TicketRequest $request)
     {
         return $this->ticketRepository->create($request);
     }
 
-    public function update(Request $request, Ticket $ticket)
+    public function update(TicketRequest $request, Ticket $ticket)
     {
         return $this->ticketRepository->update($request, $ticket);
     }
