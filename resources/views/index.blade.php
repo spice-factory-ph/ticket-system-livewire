@@ -24,11 +24,10 @@
       </div>
     </form>
   </div>
-  @if (session()->has('success'))
-    <div class="alert alert-success">
-      {{ session()->get('success') }}
-    </div>
-  @endif
+  <x-flash type="success">
+    {{ session()->get('success') }}
+  </x-flash>
+
   <table class="table table-bordered">
     <thead>
       <tr>

@@ -1,9 +1,7 @@
 <x-layout>
-  @if (session()->has('success'))
-    <div class="alert alert-success">
-      {{ session()->get('success') }}
-    </div>
-  @endif
+  <x-flash type="success">
+    {{ session()->get('success') }}
+  </x-flash>
 
   @if ($ticket->exists)
     <h4>Update a ticket</h4>
@@ -82,7 +80,7 @@
   </div>
 
   @if ($ticket->exists)
-  <hr>
+    <hr>
     <div class="mb-3">
       <textarea name="text" id="" cols="30" rows="3" class="form-control"
         placeholder="Add a comment..."></textarea>

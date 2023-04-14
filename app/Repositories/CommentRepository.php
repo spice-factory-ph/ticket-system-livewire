@@ -22,6 +22,10 @@ class CommentRepository
 
     public function create(Request $request, Ticket $ticket)
     {
+        if (!$request->text) {
+            return;
+        }
+
         $comment = new Comment();
         $comment->text = $request->text;
         $comment->ticket_id = $ticket->id;
