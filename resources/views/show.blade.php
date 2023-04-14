@@ -67,7 +67,7 @@
 
   <div class="mb-3">
     <label for="comments" class="form-label">Comments:</label>
-    @foreach ($comments as $comment)
+    @foreach ($ticket->comments as $comment)
       <div class="mb-3">
         <span>{{ $comment->user->name }}:</span>
         <p>{{ $comment->text }}</p>

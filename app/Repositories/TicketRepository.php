@@ -18,7 +18,7 @@ class TicketRepository
 
     public function getList()
     {
-        return Ticket::query()->search(request(['search', 'assignee']))->paginate(10);
+        return Ticket::query()->with(['project', 'type', 'status', 'priority', 'assignee', 'reporter'])->search(request(['search', 'assignee']))->paginate(10);
     }
 
     public function create(Request $request)

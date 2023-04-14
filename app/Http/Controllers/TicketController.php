@@ -72,9 +72,8 @@ class TicketController extends Controller
         $statuses = $this->statusService->getList();
         $users = $this->userService->getList();
         $priorities = $this->priorityService->getList();
-        $comments = $this->commentService->getList($ticket);
 
-        return view('show', compact('ticket', 'tickets', 'projects', 'types', 'statuses', 'users', 'priorities', 'comments'));
+        return view('show', compact('ticket', 'tickets', 'projects', 'types', 'statuses', 'users', 'priorities'));
     }
 
     /**

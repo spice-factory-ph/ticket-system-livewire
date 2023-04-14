@@ -11,6 +11,8 @@ class Ticket extends Model
 {
     use HasFactory;
 
+    protected $with = ['assignee', 'comments'];
+
     public function project()
     {
         return $this->belongsTo(Project::class);

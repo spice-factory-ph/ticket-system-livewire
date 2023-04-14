@@ -4,7 +4,7 @@
       {{ session()->get('success') }}
     </div>
   @endif
-  
+
   @if ($ticket->exists)
     <h4>Update a ticket</h4>
     <form action="{{ route('tickets.update', $ticket->id) }}" method="POST">
@@ -81,20 +81,23 @@
     </select>
   </div>
 
-  <div class="mb-3">
-    <label for="comments" class="form-label">Comments:</label>
-    @foreach ($comments as $comment)
-      <div class="mb-3">
-        <span>{{ $comment->user->name }}:</span>
-        <p>{{ $comment->text }}</p>
-      </div>
-    @endforeach
-  </div>
+  @if ($ticket->exists)
+  <hr>
+    <div class="mb-3">
+      <textarea name="text" id="" cols="30" rows="3" class="form-control"
+        placeholder="Add a comment..."></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="comments" class="form-label">Comments:</label>
+      @foreach ($comments as $comment)
+        <div class="mb-3">
+          <span>{{ $comment->user->name }}:</span>
+          <p>{{ $comment->text }}</p>
+        </div>
+      @endforeach
+    </div>
 
-  <div class="mb-3">
-    <textarea name="text" id="" cols="30" rows="3" class="form-control"
-      placeholder="Add a comment..."></textarea>
-  </div>
+  @endif
 
   <div>
     <button type="submit" class="btn btn-success">Submit</button>
