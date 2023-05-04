@@ -20,14 +20,14 @@ class CommentRepository
         })->get();
     }
 
-    public function create(Request $request, Ticket $ticket)
+    public function create($text, Ticket $ticket)
     {
-        if (!$request->text) {
+        if (!$text) {
             return;
         }
 
         $comment = new Comment();
-        $comment->text = $request->text;
+        $comment->text = $text;
         $comment->ticket_id = $ticket->id;
         $comment->user_id = Auth::id();
         $comment->save();

@@ -17,43 +17,36 @@ class TicketRepository
         $this->commentService = $commentService;
     }
 
-    public function getList()
+    public function getList($data)
     {
-        return Ticket::query()->with(['project', 'type', 'status', 'priority', 'assignee', 'reporter'])->search(request(['search', 'assignee']))->paginate(10);
+        $orderBy = $data['orderBy'] ?? 'created_at';
+
+        if (isset($data['orderDirection'])) {
+            $orderDirection = $data['orderDirection'] ? 'asc' : 'desc';
+        } else {
+            $orderDirection = $data['orderDirection'] ?? 'desc';
+        }
+
+        return Ticket::with(['project', 'type', 'status', 'priority', 'assignee', 'reporter'])->search($data)->orderBy($orderBy, $orderDirection)->paginate(10);
+    }
+
+    public function getTotal($data)
+    {
+        return Ticket::query()->total($data);
     }
 
     public function create(TicketRequest $request)
     {
-        $ticket = new Ticket;
-        $ticket->title = $request->title;
-        $ticket->project_id = $request->project_id;
-        $ticket->type_id = $request->type_id;
-        $ticket->status_id = $request->status_id;
-        $ticket->description = $request->description;
-        $ticket->priority_id = $request->priority_id;
-        $ticket->assigned_to = $request->assigned_to;
-        $ticket->created_by = Auth::user()->id;
-        $ticket->save();
+        Ticket::create($request->validated());
 
         return redirect(route('tickets.index'))->with(['success' => 'Ticket created successfully!']);
     }
 
     public function update(TicketRequest $request, Ticket $ticket)
     {
-        $ticket->title = $request->title;
-        $ticket->project_id = $request->project_id;
-        $ticket->type_id = $request->type_id;
-        $ticket->status_id = $request->status_id;
-        $ticket->description = $request->description;
-        $ticket->priority_id = $request->priority_id;
-        $ticket->assigned_to = $request->assigned_to;
-        $ticket->created_by = Auth::user()->id;
-
-        $this->commentService->create($request, $ticket);
+        $ticket->update($request->validated());
 
         $ticket->save();
-
-        return redirect(route('tickets.edit', $ticket->id))->with(['success' => 'Ticket updated successfully!']);
     }
 
     public function delete(Ticket $ticket)

@@ -13,6 +13,8 @@ class Ticket extends Model
 
     protected $with = ['assignee', 'comments'];
 
+    protected $guarded = [];
+
     public function project()
     {
         return $this->belongsTo(Project::class);
@@ -45,7 +47,7 @@ class Ticket extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');
     }
 
     public function scopeAssigned($query)
@@ -55,11 +57,13 @@ class Ticket extends Model
         return $query->where('assigned_to', $user->id);
     }
 
-    public function scopeSearch($query, $request)
+    public function scopeSearch($query, $data)
     {
-        $search = $request['search'] ?? '';
-        $assignee = $request['assignee'] ?? '';
-
+        $search = $data['search'] ?? '';
+        $assignee = $data['assignee'] ?? '';
+        $type = $data['type'] ?? '';
+        $priority = $data['priority'] ?? '';
+        $status = $data['status'] ?? '';
 
         $query->when($search, function ($query) use ($search) {
             $query->where('title', 'like', "%$search%");
@@ -68,5 +72,22 @@ class Ticket extends Model
         $query->when($assignee, function ($query) use ($assignee) {
             $query->where('assigned_to', $assignee);
         });
+
+        $query->when($type, function ($query) use ($type) {
+            $query->where('type_id', $type);
+        });
+
+        $query->when($priority, function ($query) use ($priority) {
+            $query->where('priority_id', $priority);
+        });
+
+        $query->when($status, function ($query) use ($status) {
+            $query->where('status_id', $status);
+        });
     }
+
+    public function scopeTotal($query, $type)
+    {
+        return $query->where('type_id', $type)->count();
+    } 
 }

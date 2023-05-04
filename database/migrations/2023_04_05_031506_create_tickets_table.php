@@ -22,6 +22,8 @@ return new class extends Migration
             $table->unsignedInteger('assigned_to');
             $table->unsignedInteger('created_by');
             $table->timestamps();
+
+            $table->index(['title']);
         });
     }
 

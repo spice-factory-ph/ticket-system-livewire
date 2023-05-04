@@ -24,6 +24,11 @@ class TicketRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:225'],
             'description' => ['required', 'string'],
+            'project_id' => ['required', 'string'],
+            'type_id' => ['required', 'string'],
+            'priority_id' => ['required', 'string'],
+            'status_id' => ['required', 'string'],
+            'assigned_to' => ['required', 'string'],
         ];
     }
 }

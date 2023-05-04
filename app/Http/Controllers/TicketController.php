@@ -32,9 +32,16 @@ class TicketController extends Controller
     public function index()
     {
         $tickets = $this->ticketService->getList();
+        $totalBugTickets = $this->ticketService->getTotal(1);
+        $totalTaskTickets = $this->ticketService->getTotal(2);
+        $totalStoryTickets = $this->ticketService->getTotal(3);
+        $projects = $this->projectService->getList();
+        $types = $this->typeService->getList();
+        $statuses = $this->statusService->getList();
         $users = $this->userService->getList();
+        $priorities = $this->priorityService->getList();
 
-        return view('index', compact('tickets', 'users'));
+        return view('index', compact('tickets', 'projects', 'types', 'statuses', 'users', 'priorities', 'totalBugTickets', 'totalTaskTickets', 'totalStoryTickets'));
     }
 
     /**
@@ -49,9 +56,8 @@ class TicketController extends Controller
         $statuses = $this->statusService->getList();
         $users = $this->userService->getList();
         $priorities = $this->priorityService->getList();
-        $comments = $this->commentService->getList($ticket);
 
-        return view('form', compact('ticket', 'tickets', 'projects', 'types', 'statuses', 'users', 'priorities', 'comments'));
+        return view('form', compact('ticket', 'tickets', 'projects', 'types', 'statuses', 'users', 'priorities'));
     }
 
     /**
@@ -88,9 +94,8 @@ class TicketController extends Controller
         $statuses = $this->statusService->getList();
         $users = $this->userService->getList();
         $priorities = $this->priorityService->getList();
-        $comments = $this->commentService->getList($ticket);
 
-        return view('form', compact('ticket', 'tickets', 'projects', 'types', 'statuses', 'users', 'priorities', 'comments'));
+        return view('form', compact('ticket', 'tickets', 'projects', 'types', 'statuses', 'users', 'priorities'));
     }
 
     /**

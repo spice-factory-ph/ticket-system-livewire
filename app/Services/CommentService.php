@@ -20,8 +20,8 @@ class CommentService
         return $this->commentRepository->getList($ticket);
     }
 
-    public function create(Request $request, Ticket $ticket)
+    public function create($comment, Ticket $ticket)
     {
-        return $this->commentRepository->create($request, $ticket);
+        return $this->commentRepository->create($comment, $ticket);
     }
 }

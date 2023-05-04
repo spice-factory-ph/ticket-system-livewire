@@ -16,9 +16,14 @@ class TicketService
         $this->ticketRepository = $ticketRepository;
     }
 
-    public function getList()
+    public function getList($data = [])
     {
-        return $this->ticketRepository->getList();
+        return $this->ticketRepository->getList($data);
+    }
+
+    public function getTotal($data)
+    {
+        return $this->ticketRepository->getTotal($data);
     }
 
     public function create(TicketRequest $request)
