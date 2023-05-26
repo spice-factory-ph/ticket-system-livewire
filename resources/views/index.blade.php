@@ -16,7 +16,9 @@
     {{ session()->get('success') }}
   </x-flash>
 
-  <livewire:data-table :statuses="$statuses" :tickets="$tickets" :types="$types" :users="$users" :priorities="$priorities" />
+  {{-- <livewire:data-table :statuses="$statuses" :tickets="$tickets" :types="$types" :users="$users" :priorities="$priorities" /> --}}
+
+  <div id="react-table"></div>
 
   @push('script')
     <script type="text/javascript">
