@@ -27,7 +27,7 @@ class TicketRepository
             $orderDirection = $data['orderDirection'] ?? 'desc';
         }
 
-        return Ticket::with(['project', 'type', 'status', 'priority', 'assignee', 'reporter'])->search($data)->orderBy($orderBy, $orderDirection)->paginate(10);
+        return Ticket::with(['project', 'type', 'status', 'priority', 'assignee', 'reporter'])->search($data)->orderBy($orderBy, $orderDirection)->get();
     }
 
     public function getTotal($data)

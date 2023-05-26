@@ -18,7 +18,7 @@
 
   {{-- <livewire:data-table :statuses="$statuses" :tickets="$tickets" :types="$types" :users="$users" :priorities="$priorities" /> --}}
 
-  <div id="react-table"></div>
+  <div id="react-table" csrf_token="{{ csrf_token() }}"></div>
 
   @push('script')
     <script type="text/javascript">

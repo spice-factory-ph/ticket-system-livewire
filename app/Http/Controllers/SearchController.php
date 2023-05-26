@@ -26,4 +26,15 @@ class SearchController extends Controller
         $tickets = $this->ticketService->getList($request);
         return response()->json($tickets);
     }
+
+    public function fields()
+    {
+        $data['users'] = $this->userService->getList();
+        $data['types'] = $this->typeService->getList();
+        $data['priorities'] = $this->priorityService->getList();
+        $data['statuses'] = $this->statusService->getList();
+
+        return response()->json($data);
+    }
+
 }

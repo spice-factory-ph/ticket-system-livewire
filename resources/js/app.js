@@ -8,4 +8,8 @@ window.axios = axios;
 
 window.$ = require('jquery');
 
-require('./Components/Table')
+$(() => {
+    if ($('#react-table').length) {
+        require('./Components/Table')
+    }
+});

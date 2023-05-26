@@ -5,15 +5,22 @@ const Select = (props) => {
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
+    sendDataToParent(event)
+  };
+
+  const sendDataToParent = (event) => {
+    props.sendData(event);
   };
 
   return (
     <div className="col-md-2">
       <select className="form-control" name={props.name} value={selectedOption} onChange={handleSelectChange}>
-        <option value="">Select an option</option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
+        <option value="">{props.name.charAt(0).toUpperCase() + props.name.slice(1) + '...'}</option>
+        {props.options?.map((item) => (
+          <option key={item.id} value={item.id}>
+            {item.name}
+          </option>
+        ))}
       </select>
     </div>
   );
